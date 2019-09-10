@@ -252,9 +252,55 @@
    cout(str,beg=0,end=len(string))
    bytes.decode(encoding="utf-8",errors="strict")
    encode(encoding='UTF-8'，errors='strict')
+   endswith(suffix,beg=0,end=len(string))
+   expandtabs(tabsize=8)
+   find(str,beg=0,end=len(string))
+   index(str,beg=0,end=len(string))
+   isalnum()
+   isalpha()
+   sidigit()
+   islower()
+   isnumeric()
+   isspace()
+   istitle()
+   isupper()
+   join(seq)
+   len(string)
+   ljust(width[,fillchar])
+   lower()
+   lstrip()
+   maketrans()
+   max(str)
+   min(str)
+   replace(old,new[,max])
+   rfind(str,beg=0,end=len(string))
+   rindex(str,beg=0,end=len(string))
+   rjust(width[,fillchar])
+   rstrip()
+   split(str="",num=string.count(str))
+   splitlines([keepends])
+   startswith(substr,beg=0,end=len(string))
+   strip([chars])
+   swapcase()
+   title()
+   translate(table,deletechars="")
+   upper()
+   sfill(width)
+   isdecimal()
+   
+第八章 列表
+序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字--他的位置或索引，索引从0开始。
+Python有6个序列的内置类型，最常见的列表和元组。
+序列都可以进行的操作包括索引、切片、加、乘、检查成员。
+Python内置确定序列长度以及确定最大和最小元素的方法。
+列表是最常用的Python数据类型，以方括号内逗号分隔值的形式出现。
+列表不需要具有相同的类型
+01.访问列表中的值
+   使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符。
+02.更新列表
+   可以对列表的数据项进行修改或更新，也可以使用append()方法来添加列表项
    
    
-
 
 
    
