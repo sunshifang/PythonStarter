@@ -299,8 +299,28 @@ Python内置确定序列长度以及确定最大和最小元素的方法。
    使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符。
 02.更新列表
    可以对列表的数据项进行修改或更新，也可以使用append()方法来添加列表项
-   
-   
+03.删除列表元素
+   del list[2];
+04.列表脚本操作符
+   组合与重复列表和字符串操作类似，用+和*号
+05.Python列表函数&方法
+   Python包含以下函数：
+   len(list)
+   max(list)
+   min(list)
+   list(seq)
+   Python包含以下方法：
+   list.append(obj)
+   list.count(obj)
+   list.extend(seq)
+   list.index(obj)
+   list.insert(index.obj)
+   list.pop([index=-1])
+   list.remove(obj)
+   list.reverse()
+   list.sor(key=None,reverse=False)
+   list.clear()
+   list.copy()
 
 
    
