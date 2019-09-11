@@ -389,6 +389,34 @@ Python内置确定序列长度以及确定最大和最小元素的方法。
 		statement_block_1
 	elif condition_2:
 	
+第十三章 循环语句
+01.while循环
+	while condition:
+		statement1
+	else:
+		statement2
+02.	简单语句组
+	while (condition): print('简单的一行执行语句')
+03.for循环--变量序列项目
+	for item in sequence
+		statements
+	else:
+		statements
+04.range()函数
+   产生数列range([start,]stop[,step])
+05.break和continue及循环中的else字句
+   break语句可以跳出for和while循环体，且else语句块将不执行。
+   continue语句跳过当前循环块中的剩余语句，然后继续进行下一轮循环。
+   else语句在穷尽列表或条件变为false循环终止时被执行，被break终止不执行。
+06.pass语句
+   空语句，用做占位符，保持程序结构的完整性
+	class MyEmptyClass:
+		pass
+		
+   
+   
+	
+	
    
    
 
