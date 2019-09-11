@@ -321,8 +321,75 @@ Python内置确定序列长度以及确定最大和最小元素的方法。
    list.sor(key=None,reverse=False)
    list.clear()
    list.copy()
+   
+第九章 Python 元组
+	元组与列表类似，不同之处在于：
+	1.元组的元素不能修改(修改、删除元组的元素会报错)
+	  TypeError: 'tuple' object does not support item assignment
+	2.元组使用小括号，列表使用方括号
+	3.可以删除整个元组
+	4.元组内置函数
+	  len(tuple)
+	  max(tuple)
+	  min(tuple)
+	  tuple(seq) 将列表转换为元组
 
+第十章 字典
+00.字典是另一种可变容器模型，且可以存储任意类型对象。
+   字典的每个键值对(key:value)用冒号(:)分割，每个对之间用逗号(,)分割，整个字典包括在花括号({})中。
+   键必须是唯一的，值则不必。
+01.字典键的特性
+   键不可以重复，键不可以改变。
+02.字典内置函数
+   len(dict)
+   str(dict)
+   type(variable)  #<class 'dict'>
+03.字典内置方法
+   radiansdict.clear()
+   radiansdict.copy()
+   radiansdict.fromkeys()
+   radiansdict.get(key,default=None)
+   key in dict
+   radiansdict.items()
+   radiansdict.keys()
+   radiansdict.setdefault(key,default=None)
+   radiansdict.update(dict2)
+   radiansdict.values()
+   pop(key[.default])
+   popitem()
+   
+第十一章 集合
+01.集合(set)是一个无序不重复元素序列。
+   可以使用大括号{}或者set()函数创建集合，
+02.集合内置方法
+   add()
+   clear()
+   copy()
+   difference()
+   difference_update()
+   discard()
+   intersection()
+   intersection_update()
+   isdisjoint()
+   issubset()
+   issuperset()
+   pop()
+   remove()
+   symmetric_difference()
+   union()
+   update() 给集合添加元素
+   
+第十二章 编程第一步
+01.结构赋值，同时给多个变量赋值
+02.关键字end使输出结果在同一行
 
+第十二章 条件控制
+01.条件语句的一般形式
+	if condition_1:
+		statement_block_1
+	elif condition_2:
+	
+   
    
 
   
