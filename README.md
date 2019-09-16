@@ -547,12 +547,232 @@ Python内置确定序列长度以及确定最大和最小元素的方法。
    第三种方式使用文件对象的write()方法，标准输出文件可以使用sys.stdout引用。
    str.format()函数可以用来格式化输出值。
    repr(解释器易读)或str(用户易读)函数可以将输出的值转成字符串。
+   str.format()的基本使用
+   print('{}网址："{}!"'.format('菜鸟教程','www.runoob.com'))
+   括号及其里面的字符(称作格式化字段)将会被format()中的参数替换。
+   如果在format()中使用了关键字参数，那么它们的值会指向使用该名字的参数。
+   位置和关键字参数可以任意结合。
+   !a (使用 ascii()), !s (使用 str()) 和 !r (使用 repr()) 可以用于在格式化某个值之前对其进行转化:
+   在 : 后传入一个整数, 可以保证该域至少有这么多的宽度。 用于美化表格时很有用。
+   如果你有一个很长的格式化字符串, 而你不想将它们分开, 那么在格式化时通过变量名而非位置会是很好的事情。
+   最简单的就是传入一个字典, 然后使用方括号 [] 来访问键值 :
+   也可以通过在 table 变量前使用 ** 来实现相同的功能：
+02.旧式字符串格式化
+   %操作符也可以实现字符串格式化。它将左边的参数作为类似sprintf()式的格式字符串，将右边的值代入，然后返回格式化后的字符串
+03.读取键盘输入
+   input()内置函数从标准输入读入一行文本，默认的标准输入是键盘
+04.读和写文件
+   open()会返回一个file对象，基本语法格式如下：
+   open(filename,mode)  
+   mode:只读、写入、追加等  r  rb	r+	rb+	w	wb	w+	wb+	a  ab  a+ ab+
    
+   模式			r		r+		w		w+		a   	a+
+   读			+		+				+				+
+   写					+		+		+		+		+
+   创建							+		+		+		+
+   覆盖							+		+
+   指针在开始	+		+		+		+
+   指针在结尾									+		+
+05.文件对象的方法
+   f.read(size) size不存在或者为负数，读取全部文件。
+   f.readline() 会从文件中读取单独的一行。换行符为 '\n'。f.readline() 如果返回一个空字符串, 说明已经已经读取到最后一行。
+   f.readlines() 将返回该文件中包含的所有行。
+   f.write(string) 将 string 写入到文件中, 然后返回写入的字符数。
+   f.tell() 返回文件对象当前所处的位置, 它是从文件开头开始算起的字节数。
+   f.seek(offset, from_what) 改变文件当前的位置。from_what 的值, 如果是 0 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾
+   f.close() 来关闭文件并释放系统的资源
+   open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+   参数说明:   
+   file: 必需，文件路径（相对或者绝对路径）。
+   mode: 可选，文件打开模式
+   buffering: 设置缓冲
+   encoding: 一般使用utf8
+   errors: 报错级别
+   newline: 区分换行符
+   closefd: 传入的file参数类型
+   opener:
+06.pickle 模块
+   pickle 模块实现了基本的数据序列化和反序列化。
+   通过pickle模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。   
+   通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。
+06.文件对象的方法
+   file.close()
+   file.flush()
+   file.fileno()
+   file.isatty()
+   file.read([size])
+   file.readline([size])
+   file.readlines('sizeint')
+   file.seek(offset[,whence])
+   file.tell()
+   file.truncate([size])
+   file.write(str)
+   file.writelines(sequence)
    
-   
-   
-   
-	
-  
+第十九章 OS文件/目录方法
+os 模块提供了非常丰富的方法用来处理文件和目录。常用的方法如下表所示：
+	os.access(path,mode)
+	os.chdir(path)
+	os.chflags(path,flags)
+	os.chmode(path,mode)
+	os.chown(path,uid,gid)
+	os.chroot(path)
+	os.close(fd)
+	os.closerange(fd_low,fd_high)
+	os.dup(fd)
+	os.dum2(fd,fd2)
+	os.fchdir(fd)
+	os.fchmode(fd,mode)
+	os.fchown(fd,uid,gid)
+	os.fdatasysnc(fd)
+	os.fdopen(fd[,mode[,bufsize]])
+	os.fpathconf(fd,name)
+	os.fstat(fd)
+	os.fstatvfs(fd)
+	os.fsync(fd)
+	os.ftruncate(fd,length)
+	os.getcwd()
+	os.getcwdu()
+	os.isatty(fd)
+	os.lchflags(path,flags)
+	os.lchmode(path,mode)
+	os.lchown(path,uid,gid)
+	os.link(src,dst)
+	os.listdir(path)
+	os.lseek(fd.pos.how)
+	os.lstat(path)
+	os.major(device)
+	os.makedev(major,minor)
+	os.makedirs(path[,mode])
+	os.minor(device)
+	os.mkdir(path[,mode])
+	os.mkfifo(path[,mode])
+	os.mknod(filename[,mode=0600,device])
+	os.open(file,flags[,mode])
+	os.openty()
+	os.pathconf(path,name)
+	os.pipe()
+	os.popen(command[,mode[,bufsize]])
+	os.read(fd,n)
+	os.readlink(path)
+	os.remove(path)
+	os.remvoedirs(path)
+	os.rename(src,dst)
+	os.renames(old,new)
+	os.rmdir(path)
+	os.stat(path)
+	os.stat_float_times([newvalue])
+	os.statvfs(path)
+	os.sysmlink(src,dst)
+	os.tcgetpgrp(fd)
+	os.tcsetpgrp(fd,pg)
+	os.tempnam([dir[,prefic]])
+	os.tmpfile()
+	os.tmpnam()
+	os.ttyname(fd)
+	os.unlink(path)
+	os.utime(path,times)
+	os.walk(top[,topdown=true[,onerror=None[,followlinks=False]]])
+	os.write(fd,str)
+	os.path 模块    //获取文件属性信息
+第二十章 错误和异常
+01.语法错误
+   语法分析器指出了出错的一行，并且在最先找到的错误位置标记一个小箭头、
+02.异常
+   运行期检测到的错误被称为异常
+03.异常处理
+	try:
+		x = int(input("Please enter a number: "))
+	    break
+	except ValueError:
+	    print("Oops!  That was no valid number.  Try again   ")
+	·首先执行try子句
+	·如果没有异常发生，忽略except子句，try子句执行后结束。
+	·如果在执行try子句的过程中发生了异常，那么try子句余下的部分将被忽略。如果异常的类型和except之后的名称相符，那么对应的except子句将被执行。最后执行try语句之后的代码。
+	·如果一个异常没有与任何的except匹配，那么这个异常将会传递给上层的try中。
+   一个try语句可能包含多个except子句，分别来处理不同的特定的异常。最多只有一个分支会被执行。
+   处理程序将只针对对应的try子句中的异常进行处理，而不是其他的try的处理程序中的异常。
+   一个except子句可以同时处理多个异常，这些异常将被放在一个括号里称为一个元组
+	except (RuntimeError, TypeError, NameError):
+		pass
+   最后一个except子句可以忽略异常的名称，它将被当做通配符使用。你可以使用这种方法打印异常错误信息，然后再次把异常抛出。
+   try except 语句还有一个可选的else子句，如果使用这个子句，那么必须放在所有的except子句之后。这个子句将在try子句没有发生任何异常的时候执行
+   使用 else 子句比把所有的语句都放在 try 子句里面要好，这样可以避免一些意想不到的、而except又没有捕获的异常。
+   异常处理并不仅仅处理那些直接发生在try子句中的异常，而且还能处理子句中调用的函数（甚至间接调用的函数）里抛出的异常
+04.抛出异常
+   raise NameError('ExceptClassChild')
+05.用户自定义异常
+   你可以通过创建一个新的异常类来拥有自己的异常。异常类继承自 Exception 类，可以直接继承，或者间接继承，例如:
+	class MyError(Exception):
+		def __init__(self,value):
+			self.value = value
+		def __str__(self):
+			return repr(self,value)
+			
+	try:
+		raise MyError(2*2)
+	except MyError as e:
+		print('My exception occurred, value:', e.value)
+06.定义清理行为
+   try语句还有另外一个可选的子句，它定义了无论在任何情况下都会执行的清理行为
+   不管 try 子句里面有没有发生异常，finally 子句都会执行。
+07.预定义清理行为
+   一些对象定义了标准的清理行为，无论系统是否成功的使用了它，一旦不需要它了，那么这个标准的清理行为就会执行。
+   关键词 with 语句就可以保证诸如文件之类的对象在使用完之后一定会正确的执行他的清理方法:
+   with open("myfile.txt") as f:
+       for line in f:
+           print(line, end="")
 
-
+第二十章 面向对象
+00.Python在设计之初就是一门面向对象的语言。
+01.面向对象技术简介
+   ·类(class)：用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。
+   ·方法：类中定义的函数
+   ·类变量：在整个实例化的对象中是共用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。
+   ·数据成员：类变量或者实例变量用于处理类及其实例对象的相关的数据。
+   ·方法重写：如果从父类继承的方法不能满足子类的需求，可以对其进行改写，这个过程叫方法的覆盖(override),也称为方法的重写。
+   ·局部变量：定义在方法中的变量，只作用于当前实例的类。
+   ·实例变量：在类的声明中，属性是用变量表示的，这种变量称为实例变量，是在类声明的内部但是在类的其他成员方法之外声明的。
+   ·继承：一个派生类(derived class)继承基类(base class)的字段和方法。继承也允许把一个派生类的对象作为一个基类对象对待。
+   ·实例化：创建一个类的实例，类的具体对象。
+   ·对象：通过类定义的数据结构实例。对象包括两个数据成员(类变量和实例变量)和方法。
+02.类定义
+   class ClassName:
+       <statement-1>
+       .
+       .
+       .
+       <statement-N>
+   类实例化后，可以使用其属性，实际上，创建一个类之后，可以通过类名访问其属性
+03.类对象
+   类对象支持两种操作：属性引用和实例化
+   属性引用使用和Python中所有的属性引用一样的标准语法：obj.name.
+   类对象创建后，类命名空间中所有的命名都是有效属性名。
+   类有一个名为 __init__() 的特殊方法（构造方法），该方法在类实例化时会自动调用，像下面这样：
+    def __init__(self):
+		self.data = []
+   类定义了 __init__() 方法，类的实例化操作会自动调用 __init__() 方法.
+04.self代表类的实例，而非类
+   类的方法与普通函数只有一个特别的区别--他们必须有一个额外的第一个参数名称，self。
+05.类的方法
+   在类的内部，使用def关键字定义一个方法，与一般函数定义不同，类方法必须包含参数self，且为第一个参数，self代表的是类的实例。
+06.类的继承
+   如果一种语言不支持继承，类就没有什么意义。
+   class DerivedClassName(BaseClassName1):
+   需要注意圆括号中基类的顺序，若是基类中有相同的方法名，而在子类使用时未指定，python从左至右搜索。即方法在子类中未找到时，从左到右查找基类中是否包含方法。
+   BaseClassName(示例中的基类名)必须与派生类定义在一个作用域内。除了类，还可以用表达式，基类定义在另一个模块中时这一点非常有用：
+   class DerivedClassName(modulename.BaseClassName):
+07.多继承
+   class DerivedClassName(Base1, Base2, Base3):
+   需要注意圆括号中父类的顺序，若是父类中有相同的方法名，而在子类使用时未指定，python从左至右搜索 即方法在子类中未找到时，从左到右查找父类中是否包含方法。
+08.方法重写
+09.super()函数
+   用于调用父类(超类)的一个方法。
+   super是用来解决多重继承问题的，直接用类名调用父类方法，在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序(MRO)、重复调用(钻石继承)等种种问题。
+   MRO就是类的方法解析顺序表，其实也就是继承父类方法时的顺序表。
+   super(type,[,object-or-type])
+   参数：
+		type--类
+		object-or-type--类，一般是self
+	python3可以直接使用super().xxx代替super(class,self).xxx
+   
