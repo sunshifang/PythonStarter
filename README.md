@@ -937,7 +937,45 @@ os 模块提供了非常丰富的方法用来处理文件和目录。常用的�
    可以批量实现插入语句，事务处理好像很方便。
    
 第二十六章 网络编程
-00.网络编程主要涉及到的是socket编程，上班后研究一下。
+00.网络编程主要涉及到的是socket编程，上班后研究一下，还有研究一下git的合并。
+   Python提供了两个级别访问的网络服务：
+   · 低级别的网络服务级别支持基本的Socket，它提供了标准的BSD Sockets API，可以访问底层操作系统Socket接口的全部方法。
+   · 高级别网络服务模块SocketServer，它提供了服务器中心类，可以简化网络服务器的开发。
+01.什么是Socket？
+   Socket又称套接字，应用程序通常通过“套接字”向网络发出请求或者应答网络请求，使主机或者一台计算机上的进程间可以通讯。
+02.Socket()函数
+   socket.socket([family[,type,[proto]]])
+   其中，family：套接字家族可以使(用)AF_UNIX 或者 AF_INET
+	    type：套接字类型可以根据是面向连接的还是非连接的，分为SOCK_STREAM或SOCK-DGRAM
+		protocol: 一般不填默认为0.
+03.Socket对象(内建)方法
+   函数				描述
+   服务器端套接字
+   s.bind()			绑定地址(host,port)到套接字，在AF_INET下，以元组(host,port)的形式表示地址。
+   s.listen()		开始TCP监听。backlog指定在拒绝连接之前，操作系统可以挂起的最大连接数量。该值至少为1，大部分应用程序设为5就可以了。
+   s.accept()		被动接受TCP客户端连接，(阻塞式)等待连接的到来。
+   客户端套接字
+   s.connect()		主动初始化TCP服务器连接，一般address的格式为元组(hostname,port)，如果连接出错，返回socket。error错误。
+   s.connect_ex()	connect()函数的扩展版本，出错时返回错误码，而不是抛出异常
+   公共用途的套接字函数
+   s.recv()
+   s.send()
+   s.sendall()
+   s.recvfrom()
+   s.sendto()
+   s.close()
+   s.getpeername()
+   s.getsockname()
+   s.setsockopt(level,opt,value)
+   s.getsockopt(level,opt,[,buflen])
+   s.settimeout(timeout)
+   s.gettimeout()
+   s.fileno()
+   s.setblocking(flag)
+   s.makefile()
+04.简单实例   
+   
+   
 
 
    
