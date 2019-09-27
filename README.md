@@ -973,9 +973,218 @@ os 模块提供了非常丰富的方法用来处理文件和目录。常用的�
    s.fileno()
    s.setblocking(flag)
    s.makefile()
-04.简单实例   
+04.简单实例  
+   网络连接的实例要在终端中运行
+05.Python Internet 模块
+   协议		功能						端口号	Python模块
+   HTTP		网页访问					80		httplib, urllib, xmlrpclib
+   NNTP		阅读和张贴新闻文章，帖子	119		nntplib
+   FTP		文件传输					20		ftplib，urllib
+   SMTP		发送邮件					25		smtplib
+   POP3		接收邮件					110		poplib
+   IMAP4	获取邮件					143		imaplib
+   Telnet	命令行					23		telnetlib
+   Gopher	信息查找					70		gopherlib，urllib
    
-   
+第二十七章 Python3 SMTP发送邮件
+00.SMTP(Simple Mail Transfer Protocal)即简单邮件传输协议，它是一组用于由源地址到目的地址传输邮件的规则，由它来控制邮件的中转方式。
+   1）创建SMTP对象语法
+   import smtplib
+   smtpObj = smtplib.SMTP([host[,port[,local_hostname]]])
+   参数说明：
+   · host：SMTP服务器主机，IP或者域名，可选
+   · port：提供了host参数，需要指定SMTP服务使用的端口号，一般情况下SMTP端口号为25.
+   · local_hostname：如果SMTP在你的本机上，你只需要指定服务器地址为localhost即可。
+   2）SMTP对象发送邮件语法：
+   SMTP.sendmail(from_addr, to_addrs,msg[,mail_options,rcpt_options])
+   参数说明：
+   · from_addr: 邮件发送者地址
+   · to_addrs：邮件接收地址，字符串列表
+   · msg：邮件内容
 
-
+第二十八章 多线程
+00.多线程类似于同时执行多个不同程序，多线程有如下优点：
+   · 使用线程可以把占据长时间的程序中的任务放到后台去处理。
+   · 用户界面可以更加吸引人，比如用户点击了一个按钮去触发某些事件的处理，可以弹出一个进度条来显示处理进度。
+   · 程序的运行速度可能加快。
+   · 在一些等待的任务实现上入用户输入、文件读写和网络收发数据等，线程比较有用。在这种情况下可以释放资源，如内存等。
+   每个独立的线程有一个程序运行的入口、顺序执行序列和程序出口。但是线程不能独立运行，必须依存在应用程序中，有应用程序提供多个线程执行控制。
+   每个线程都有他自己的一组CPU寄存器，称为线程的上下文，该上下文反应了线程上次运行该线程的CPU寄存器的状态。
+   指令指针和堆栈指针寄存器是线程上下文中两个最重要的寄存器，线程总是在进程得到上下文中运行的，这些地址都用于标志拥有线程的进程地址空间中的内存。
+   · 线程可以被抢占(中断)。
+   · 在其他线程正在运行时，线程可以暂时搁置(也称睡眠)--这就是线程退让。
+   线程可以分为：
+   · 内核线程：由操作系统内核创建和撤销。
+   · 用户线程：不需要内核支持而在用户程序中实现的线程。
+   Python线程中常用_thread 和 threading(推荐)，_thread是python2的thread的重命名，
+01.开始学习Python线程
+   Python3中使用线程有两种方式：函数调用(start_new_thread())或者用类包装线程对象。
+   _thread.start_new_thread(function,args[,kwargs])
+   参数说明：function-线程函数。
+            args-传递给线程函数的参数，tuple类型
+			kwargs-可选参数
+02.线程模块
+   _thread提供了低级别的、原始的线程以及一个简单的锁，他相比于threading模块的功能还是比较有限的。
+   threading模块除了包含_thread模块中的所有方法外，还提供其他方法
+   · threading.currentThread(): 返回当前的线程变量
+   · threading.emumerate()：返回一包含正在运行的线程的list。正在运行指线程启动后、结束前，不包含启动前和终止后的线程。
+   · threading.activeCount()：返回正在运行的线程数量，与len(threading.enumerate())有相同的结果。
+   除了使用方法外，线程模块同样提供了Thread类来处理线程，Thread类提供了以下方法：
+   · run()：用以表示线程活动的方法。
+   · start()：启动线程活动。
+   · join([time])：等待线程中止。这阻塞调用线程直至线程的join()方法被调用中止-正常退出或者抛出未处理的异常-或者是可选的超时发生。
+   · isAlive()：返回线程是否是活动的。
+   · getName()：返回线程名。
+   · setName()：设置线程名。
+03.使用threading模块创建线程
+   直接从threading.Thread继承创建一个新的子类，并实例化后调用start()方法启动新的线程，即它调用了现场的run()方法。
+04.线程同步
+   如果多个线程共同对某个数据修改，则可能出现不可预料的结果，为了保证数据的正确性，需要对多个线程进行同步。
+   使用Thread对象的Lock和Rlock可以实现简单的线程同步，这两个对象都有acquire方法和release方法，对于那些需要每次只允许一个线程操作的数据，可以直接将数据放到acquire和relase方法之间。
+   多线程的优势在于可以同时运行多个任务(至少感觉起来是这样)。但是当线程需要共享数据时，可能存在数据不同步的问题。
+   如：一个列表里所有元素都是0，线程"set"从后向前把所有元素改成1，而线程"print"负责从前往后读取列表并打印。
+   那么线程"set"开始改的时候，线程"print"便来打印列表了，输出就有一部分0一部分是1，这就是数据不同步。为了避免这种情况，引入了锁的概念。
+   锁有两种状态--锁定和未锁定。每当一个线程比如"set"要访问共享数据时，必须先获得锁定；如果已经有别的线程比如"print"获得锁定了，那么就让"set"暂停，也就是同步阻塞；等到线程"print"访问完毕，释放锁以后，再让线程"set"继续。经过这样的处理，则不会再出现混淆的情况。
+05.线程优先级队列(Queue)
+   Queue模块中提供了同步的、线程安全的队列类，包括FIFO(先进先出)队列Queue，LIFO(后进先出)队列LifoQueue，和优先级队列PriorityQueue。
+   这些队列都实现了锁原语，能够在线程中直接使用，可以使用队列来实现线程间的同步。
+   Queue模块中的常用方法：
+   · Queue.qsize() 返回队列的大小
+   · Queue.empty() 如果队列为空，返回True，反之False
+   · Queue.full() 如果队列满了，返回True
+   · Queue.get([block[,timeout]) 获取队列timeout等待时间
+   · Queue.get_nowait()相当于Queue.get(False)
+   · Queue.put(itme) 写入队列
+   · Queue.put_nowait(item)相当Queue.put(item,False)
+   · Queue.task_done() 在完成一项工作之后，Queue.task_done()函数想任务已经完成的队列发送一个信号
+   · Queue.join() 实际上意味着等到队列为空再执行别的操作。
    
+第二十九章 Python XML解析
+01.什么是XML？
+   传输和存储数据
+   定义语义的规则，将文档分成许多部件并对这些部件加以标识。
+   也是元标记语言，即定义了用于定义其他与特定领域有关的、语义的、结构化的标记语言的句法语言。
+02.Python对XML的解析
+   常见的XML编程接口有DOM和SAX，这两种接口处理XML文件的方式不同，使用场合也不同。
+   Python有三种解析方法：SAX，DOM，ElementTree
+   1）SAX(simple API for XML)
+      Python标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户自定义的回调函数来处理XML文件。
+   2）DOM(Document Object Model)
+      将XML数据在内存中解析成一颗数，通过对数的操作来操作XML.
+03.使用SAX解析XML
+   SAX是一种基于事件驱动的API。
+   利用SAX解析XML文档涉及到两个部分：解析器和事件处理器
+   解析器负责读取XML文档，并向事件处理器发送事件，如元素开始跟元素结束事件。
+   事件处理器负责对事件作出响应，对传递的XML数据进行处理。
+   ·1 对大型文件进行处理
+   ·2 只需要文件的部分内容，或者只需从文件中得到特定信息
+   ·3 想建立自己的对象模型的时候。
+   处理时要先引入xml.sax中的parse函数，还有xml.sax.handler中的ContentHandler。
+04.ContentHandler类方法介绍
+   characters(content)方法
+     从行开始，遇到标签之前，存在字符，content的值为这些字符。
+     从一个标签，遇到下一个标签之前，存在字符，content的值为这些字符。
+     从一个标签，遇到结束符之前，存在字符，content的值为这些字符。
+     标签可以是开始标签，也可以是结束标签。
+   startDocument()
+     文档启动的时候调用
+   endDocument()
+     解析器到达文档结尾时调用
+   startElment(name,attrs)	 
+     遇到XML开始标签时调用，name是标签的名字，attrs是标签的属性值字典。
+   endElement(name)
+     遇到XML结束标签时调用
+   make_parser
+     创建并返回新的解析器对象
+   parser
+     创建SAX解析器并解析XML文档
+     xml.sax.parse(xmlfile, contenthandler[, enrrohandler])
+   parseString
+     创建一个XML解析器并解析XML字符串
+     xml.sax.parseString(xmlstring, contenthandler[, errorhandler])
+
+第三十章 JSON数据解析
+00.JSON(JavaScript Object Notation)是一种轻量级的数据交换格式，基于ECMAScript的一个子集。
+   json模块对JSON数据进行编码、解码，它包含了两个函数：
+   ·json.dumps()：对数据进行编码
+   ·json.loads()：对数据进行解码
+   在json编码过程中，python的原始类型与json类型会相互转换，具体转换对照如下：
+   Python 编码为 JSON 类型转换对应表：
+   Python								JSON
+   dict									object
+   list,tuple							array
+   str									string
+   int,float,int- & float-derived Emums	number
+   True									true
+   False								false
+   None									null
+   JSON 解码为 Python 类型转换对应表：
+   JSON			Python
+   object		dict
+   array		list
+   string		str
+   number(int)	int
+   number(real)	float
+   true			True
+   false		False
+   null			None
+   如果你要处理的是文件而不是字符串，你可以使用 json.dump() 和 json.load() 来编码和解码JSON数据。例如：
+   
+   实例(Python 3.0+)
+   # 写入 JSON 数据
+   with open('data.json', 'w') as f:
+       json.dump(data, f)
+    
+   # 读取数据
+   with open('data.json', 'r') as f:
+       data = json.load(f)
+	   
+第三十一章 日期和时间
+00.Python提供了一个time和calendar模块用于格式化日期和时间。
+   时间间隔是以秒为单位的浮点小数。
+   每个时间戳都以1970年1月1日午夜(历元)经过的时间来表示。
+   Python的time模块下有很多函数可以转换常见日期格式，如time.time()用于获取当前时间戳。
+01.时间元组
+   很多Python函数用一个元组装起来的9组数字处理时间：
+   序号		字段			属性			值
+   0		4位数年		tm_year		2008	
+   1		月			tm_mon		1 到 12
+   2		日			tm-mday		1 到31
+   3		小时			tm_hour		0 到 23
+   4		分钟			tm_min		0 到 59
+   5		秒			tm_sec		0 到 61(60或61是闰秒)
+   6		一周的第几日	tm_wday		0 到 6(0是周一)
+   7		一年的第几日	tm_yday		1 到 366
+   8		夏令时		tm_isdst	1(夏令时)、0(非夏令时)、-1(未知)，默认-1
+02.获取当前时间
+   从返回浮点数的时间戳方式向时间元组转换，只要将浮点数传递给如localtime之类的函数
+03.获取格式化的时间
+   最简单的获取可读的时间模式的函数是asctime()
+04.格式化日期
+   使用time模块的strftime方法来格式化日期：
+   time.strftime(format[, t])
+   format格式化符号：
+   · %y 两位数的年份(00-99)
+   · %Y 四位数的年份(0000-9999)
+   · %m 月份(01-12)
+   · %d 月内中的一天(0-31)
+   · %H 24小时制的小时数(0-23)
+   · %I 12小时制的小时数(01-12)
+   · %M 分钟数(00-59)
+   · %S 秒(00-59)
+   · %a 本地简化星期名称
+   · %A 本地完整星期名称
+   · %b 本地简化月份名称
+   · %B 本地完整月份名称
+   · %c 本地相应的日期和时间表示
+   · %j 年内的一天(000-366)
+   · %p 本地A.M.或P.M.的等价符
+   · %U 一年中的星期数(00-53),星期天为星期的开始
+   · %w 星期(0-6),星期天为星期的开始
+   · %W 一年中的星期数(00-53),星期一为星期的开始
+   · %x 本地相应的日期表示
+   · %X 本地相应的时间表示
+   · %Z 当前时区的名称
+   · %% 表示%号本身
+05.获取某月日历
+   Calendar模块有很广泛的方法来处理年历和月历，例如打印某月的月历：
