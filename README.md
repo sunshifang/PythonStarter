@@ -1317,4 +1317,15 @@ os 模块提供了非常丰富的方法用来处理文件和目录。常用的�
    66) vars()
    67) zip()
    68) __import__()
+第三十三章 GUI编程(Tkinter)
+01.Tkinter编程
+   Tkinter是内置到python的安装包中，只需导入可以快速创建GUI应用程序。
+   IDLE也是用Tkinter编写而成，对于简单的图形界面能够应付自如。
+   Python3.x版本使用的库名为tkinter，即首字母T为小写。
+   创建GUI程序的流程：
+   ·1、导入tkinter模块。
+   ·2、创建控件。
+   ·3、指定这个控件的master，即这个控件属于哪个控件。
+   ·4、告诉GM(geometry manager)有一个控件产生了。
+   
    
