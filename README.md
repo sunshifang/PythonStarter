@@ -1327,5 +1327,203 @@ os 模块提供了非常丰富的方法用来处理文件和目录。常用的�
    ·2、创建控件。
    ·3、指定这个控件的master，即这个控件属于哪个控件。
    ·4、告诉GM(geometry manager)有一个控件产生了。
+02.tkinter组件
+   目前有15种tkinter组件(Python2.x)：
+   序号	控件			描述
+   01	Button		按钮控件；在程序中显示按钮
+   02	Canvas		画布控件；显示图形元素，如线条或文本
+   03	Checkbutton	多选框控件；用于在程序中提供多项选择框
+   04	Entry		输入控件；用于显示简单的文本内容
+   05	Frame		框架控件；在屏幕上显示一个矩形区域，多用来作为容器
+   06	Label		标签控件；可以显示文本和位图
+   07	Listbox		列表框控件；在Listbox窗口小部件是用来显示一个字符串列表给用户
+   08	Menubutton	菜单按钮；显示菜单栏、下拉菜单和弹出菜单
+   09	Message		消息控件；用来显示多行文本，与label比较类似
+   10	Radiobutton	单选按钮；
+   11	Scale		范围控件；显示一个数值刻度，为输出限定范围的数字区间
+   12	Scroobar	滚动条控件；当内容超过可视化区域时使用，如列表框
+   13	Text		文本控件；用于显示多行文本
+   14	Toplevel	容器控件；用来提供一个单独的对话框，和Frame比较类似
+   15	Spinbox		输入控件；与Entry类似，但是可以指定输入范围值
+   16	PanedWindow	窗口布局管理插件，可以包含一个或者多个子控件
+   17	LabelFrame	简单的容器控件；常用于复杂的窗口布局
+   18	tkMessageBox用于显示应用程序的消息框
+03.标准属性(所有控件的共同属性)
+   属性		描述
+   Dimension控件大小
+   Color	颜色
+   Font		字体
+   Anchor	锚点
+   Relief	控件样式
+   Bitmap	位图
+   Cursor	光标
+04.几何管理(布局管理)
+   tkinter控件有特定的几何状态管理方法，管理整个控件区域组织，包括包、网格、位置三个公开的管理类
    
-   
+第三十四章 NumPy应用   
+00.NumPy通常与SciPy(Scientific Python)和Matplotlib(会图库)一起使用，这种组合广泛用于替代MatLab，是一个强度的科学计算环境，有助于学习数学科学或者机器学习。
+   SciPy是一个开源的Python算法库和数学工具包。
+   SciPy包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、厂微分方程和其他科学与工程中常用的计算。
+   Mapplotlib是Python编程语言及其数值数学扩展包NumPy的可视化操作界面。它为利用通用的图形用户界面工具包，如tkinter、wxPython、Qt或GTK+向应用程序嵌入式绘图提供了应用程序接口
+   NumPy是一个运行速度非常快的数学库，主要用于数组计算，包含：
+    · 一个强大的N维数组对象ndarray
+	· 广播功能函数
+	· 整合C/C++/Fortran代码的工具
+	· 线性代数、傅里叶变换、随机数生成等功能
+01.NumPy安装
+   1、使用已有的发行版本
+   2、使用pip安装
+      python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+	  --user选项可以设置只安装在当前的用户下，而不是写入系统目录
+   3、安装验证
+      from numpy import *
+	  eye(4)
+   4、Numpy Ndarray对象
+      Numpy最重要的一个特点是其N维数组对象ndarray，它是一系列同类型数据的集合，以0下标为开始进行集合中元素的索引。
+	  ndarray对象用于存放同类型元素的多维数组
+	  ndarray中的每个元素在内存中都有相同存储大小的区域。
+	  ndarray内部又以下内容组成：
+	     ·一个指向数据(内存或内存映射文件中的一块数据)的指针。
+		 ·数据类型或dtype，描述在数组中的固定大小值的格子。
+		 ·一个表示数组形状(shape)的元组，表示各维度大小的元组。
+		 ·一个跨度元组(stride),其中的整数指的是为了前进到当前维度下一个元素需要"跨过"的字节数。
+   5、创建ndarray的语法：
+      numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0)
+	  · object	数组或嵌套的数列
+	  · dtype	数组元素的数据类型，可选
+	  · copy	对象是否需要复制，可选
+	  · order	创建数组的样式，C为行方向，F为列方向，A为任意方向(默认)
+	  · subok	默认返回一个与基类型一致的数组
+	  · ndmin	指定生成数组的最小维度
+	  ndarray对象由计算机内存连续一维部分组成，并结合索引模式，将每个元素映射到内存块中的一个位置内存块以行顺序(C样式)或列顺序(FORTRAN或MatLab风格，即前述的F样式)来保存元素。
+   6、NumPy数据类型
+      numpy支持的数据类型比Python内置类型要多很多，基本上可以和C语言的数据类型对应上，其中部分类型对应为Python内置的类型，常用基本类型如下表：
+	  名称		描述
+	  bool_		布尔数据类型（True或者False）
+	  int_		默认的整数类型(类似于C语言的long、int32或int64)
+	  intc		与C的int类型一样，一般是int32或int64
+	  intp		用于索引的整数类型(类似于C的ssize_t，一般情况下仍然是int32或int64)
+	  int8		字节(-128 头127)
+	  int16		整数(-32768 to 32767)
+	  int32		整数(-2147483648 to 2147483647)
+	  int64		整数(-9223372036854775808 to 9223372036854775807)
+	  uint8		无符号整数(0 to 255)
+	  uint16	无符号整数(0 to 65535)
+	  uint32	无符号整数(0 to 4294967295)
+	  uint64	无符号整数（0 to 18446744073709551615）
+	  float_	float64类型的简写
+	  float16	半精度浮点数，包括：1个符号位，5个指数位，10个尾数位。
+	  float32	半精度浮点数，包括：1个符号位，8个指数位，23个尾数位。
+	  float64	半精度浮点数，包括：1个符号位，11个指数位，52个尾数位。
+	  complex_	complex128类型的简写，即128位复数
+	  complex64 复数，表示双32位浮点数(实数部分和虚数部分)
+	  complex128复数，表示双64位浮点数(实数部分和虚数部分)
+   7、数据类型对象(dtype)
+      · 数据的类型(整数、浮点数或者Python对象)
+	  · 数据的大小(例如，整数使用多少个字节存储)
+	  · 数据的字节顺序(小端法或大端法)
+	  · 在结构化类型的情况下，字段的名称、每个字段的数据类型和每个字段所取的内存块的部分
+	  · 如果数据类型是子数组，它的形状和数据类型
+	  字节顺序是通过对数据类型预先设定 "<" 或 ">" 来决定的。"<" 意味着小端法(最小值存储在最先的地址，即低位组放在最前面)。">" 意味着大端法(最大的数值存储在最小的地址，即高位组放在最前面)。
+	  dtype对象使用以下语法构造：
+	   numpy.dtype(object,align,copy)
+	   ·object - 要转换为的数据类型对象
+	   ·align - 如果为true，填充字段使其类似C的结构体。
+	   ·copy - 复制dtype对象，如果为false，zeshi对内置数据类型对象的引用
+	  每个内建类型都有一个唯一定义它的字符代码，如下：
+	  字符	对应类型
+	  b 	布尔型
+	  i 	(有符号)整型
+	  u 	(无符号)整型
+	  f 	浮点型
+	  c 	复数浮点型
+	  m	 	timedelta(时间间隔)
+	  M 	diatetime(日期时间)
+	  O 	(Python)对象
+	  S,a 	(byte-)字符串
+	  U		Unicode
+	  V		原始数据(void)
+   8、NumPy数组属性
+      维数称为秩(rank)，一维数组的秩为1，二维数组的秩为2，以此类推。
+	  在NumPy中，每一个线性的数组称为是一个轴(axis)，也就是维度(dimensions)。比如说，二维数组相当于是两个一维数组，其中第一个一维数组中每个元素又是一个一维数组。所有一维数组就是NumPy中的轴(axis)，第一个轴相当于底层数组，第二个轴是底层数组里数组。而轴的数量--秩就是数组的维数。
+	  很多时候可以声明axis。axis=0，表示沿着第0轴进行操作，即对每一列进行操作；axis=1，表示沿着第一轴进行操作，即对每一行操作。
+	  NumPy的数组中比较重要的ndarray对象属性有：
+	  属性			说明
+	  ndarray.ndim	秩，即轴的数量或维度的数量
+	  ndarray.shape	数组的维度，对于矩阵，n行m列
+	  ndarray.size	数组元素的总个数，相当于.shape中的n*m的值
+	  ndarray.dtype	对象的元素类型
+	  ndarray.itemsize 对象中每个元素的大小，以字节为单位
+	  ndarray.flags	对象的内存信息
+	  ndarray.real	元素的实部
+	  ndarray.imag	元素的虚部
+	  ndarray.data	包含实际数组元素的缓冲区，由于一般通过数组的索引获取元素，所以通常不需要使用这个属性
+	  NumPy 也提供了 reshape 函数来调整数组大小
+	  ndarray.flags返回ndarray对象的内存信息，包含以下属性：
+	  属性				描述
+	  C_CONTIGUOUS(C)	数据是在一个单一的C风格的连续段中
+	  F_CONTIGUOUS(F)	数据是在一个单一的Fortran风格的连续段中
+	  OWNDATA(0)		数组拥有它所使用的内存或从另一个对象中借用它
+	  WRITEABLE(W)		数据区域可以被写入，将该值设置为False，则数据为只读
+	  ALIGNED(A)		数据和所有元素都适当地对齐到硬件上
+	  UPDATEIFCOPY(U)	这个数组是其他数组的一个副本，当这个数组被释放时，原数组的内容将被更新
+   8、NumPy创建数组
+      ndarray数组除了可以使用底层ndarray构造器来创建外，也可以通过以下几种方式来创建
+	  numpy.empty
+	  创建指定形状(shape)、数据类型(dtype)且未初始化的数组：
+	  numpy.empty（shape,dtype=float,order='C')
+	  numpy.zeros
+	  创建指定大小的数组，数组元素以 0 来填充
+	  numpy.zeros(shape, dtype = float, order = 'C')	  
+	  numpy.ones
+	  创建指定形状的数组，数组元素以 1 来填充：
+	  numpy.ones(shape, dtype = None, order = 'C')
+   9、从已有数组创建数组
+      numpy.asarray 类似 numpy.array，但 numpy.asarray 参数只有三个，比 numpy.array 少两个
+	  numpy.asarray(a, dtype=None, order=None)
+	  a -- 任意形式的输入参数，可以是列表、列表的元组、元组、元组的元组、元组的列表、多维数组
+	  dtype -- 数据类型，可选
+	  order -- 可选，有C和F两个选项，分别代表行优先和列优先，表示在计算机内存中的存储元素的顺序。
+	  numpy.frombuffer
+	  用于实现动态数组
+	  接受buffer输入参数，以流的形式转化成ndarray对象。
+	  numpy.frombuffer(buffer,dtype=float,count=-1,offset=0)
+	  注意：buffer是字符串的时候，Python3默认str是Unicode类型，所以要转成bytestring，在原str前加上b。
+	  参数说明：
+	  buffer	可以是任意对象，会以流的形式读入。
+	  dtype		返回数组的数据类型，可选。
+	  count		读取的数据数量，默认为-1，读取所有数据。
+	  offset	读取的起始位置，默认为0.
+   9、从迭代对象创建数组
+      numpy.frommiter(iterable, dtype, count = -1)
+   10.从数值范围创建数组
+      numpy.arange(start, stop, step, dtype)
+	  参数说明：
+	  start		起始值，默认为0
+	  stop		终止值(不包含)
+	  step		步长，默认为1
+	  dtype		返回ndarray的数据类型，如果没有提供，则会使用输入数据的类型。
+   11.用函数创建数组
+      numpy.linspace(start,stop,num=50,endpoint=true,retstep=False,dtype=None)
+	  参数说明：
+	  start		序列的起始位置
+	  stop		序列的终止位置，如果endpoint为true，该值包含于数列中。
+	  num		要生成的等步长的样本数量，默认为50.
+	  endpoint	该值为true时，数列中包含stop值，反之不包含，默认是true
+	  retstep	如果为true时，生成的数组中会显示间距，反之不显示。
+	  dtype		ndarray的数据类型
+   12.用函数创建等比数列
+      np.logspace(start,stop,num=50,endpoint=true,base=10.0,dtype=None)
+	  base参数意思是取对数的时候log的下标：
+	  参数		描述
+	  start		序列的起始值为：base**start
+	  stop		序列的终止值为：base**stop. 如果endpoint为true，该值包含于数列中
+	  num		要生成的等步长的样本数量，默认为50
+	  endpoint	该值为True时，数列中包含stop值，反之不包含，默认是True。
+	  base		对数log的底数
+	  dtype		ndarray的数据类型
+   13.NumPy切片和索引
+      ndarray对象的内容可以通过索引或切片来访问和修改，与Python中list的切片操作一样。
+	  ndarray数组可以基于0-n的下标进行索引，切片对象可以通过内置的slice函数，并设置start，stop及step参数进行，从原数组中切割出一个新数组。
+	  
+	  

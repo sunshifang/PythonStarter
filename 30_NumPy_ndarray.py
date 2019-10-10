@@ -1,0 +1,46 @@
+import numpy as np
+
+print('1. ndarray.ndim 用于返回数组的维数，等于秩')
+print('执行 a=np.arrange(24)【a只有一个维度】 的结果：')
+a = np.arange(24)
+print(a)
+print('现在调整其大小')
+b = a.reshape(2,4,3)
+print("执行 b = a.reshape(2,4,3)【b有3个维度】")
+print(b.ndim)
+print(b)
+print()
+
+print("2. ndarray.shape 表示数组的维度，返回一个元组，这个元组的长度就是维度的数目，即 ndim 属性(秩)。比如，一个二维数组，其维度表示行数和列数")
+print("执行 a = np.array([[1,2,3],[4,5,6]]) 的结果为：")
+a = np.array([[1,2,3],[4,5,6]])
+print(a.shape)
+print()
+
+print("3. 调整数组大小")
+print("执行 a=np.array([[1,2,3],[4,5,6]]) a.shape 的结果为：")
+a.shape = (3,2)
+print(a)
+print()
+
+print("4. NumPy 也提供了 reshape 函数来调整数组大小")
+print("执行 a.reshape(3,2) 结果为：")
+b = a.reshape(1,6)
+print(b)
+print()
+
+print("5. ndarray.itemsize 以字节的形式返回数组中每一个元素的大小")
+print("x = np.array([1,2,3,4,5], dtype = np.int8 print (x.itemsize)")
+x = np.array([1,2,3,4,5], dtype = np.int8)  
+print (x.itemsize)
+print("数组的 dtype 现在为 float64（八个字节）")
+y = np.array([1,2,3,4,5], dtype = np.float64)
+print (y.itemsize)
+print()
+
+print("6. ndarray.flags 返回 ndarray 对象的内存信息")
+print("执行 np.array([1,2,3,4,5]) print (x.flags) 结果为：")
+x = np.array([1,2,3,4,5])  
+print (x.flags)
+print()
+
