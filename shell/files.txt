@@ -1,0 +1,7 @@
+01_printf.sh
+02_if.sh
+03_loop.sh
+files.txt
+myfile
+test.sh
+test1.sh

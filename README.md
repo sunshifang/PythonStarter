@@ -2519,15 +2519,139 @@ os 模块提供了非常丰富的方法用来处理文件和目录。常用的�
 			command11
 			……
 		fi
-11. for循环	
-	for var in item1 item2 ... itemN
-	do
-		command1
-		command2
-		……
-		commandN
-	done
-	for var in item1 item2 ...itemN; do command1;command2... done;
-	当变量值在列表里，for循环即执行一次所有命令，使用变量名获取变量列表中的当前取值。命令可以为任何有效的shell命令和语句。in列表可以包含替换、字符串和文件名。
-	in列表是可选的，如果不用它，for循环使用命令行的位置参数
+11. 循环语句
+	01）for循环	
+		for var in item1 item2 ... itemN
+		do
+			command1
+			command2
+			……
+			commandN
+		done
+		for var in item1 item2 ...itemN; do command1;command2... done;
+		当变量值在列表里，for循环即执行一次所有命令，使用变量名获取变量列表中的当前取值。命令可以为任何有效的shell命令和语句。in列表可以包含替换、字符串和文件名。
+		in列表是可选的，如果不用它，for循环使用命令行的位置参数
+	02）while循环
+		while循环用于不断执行一系列命令，也用于从输入文件中读取数据；命令通常为测试条件。其格式为：
+		while condition
+		do
+			command
+		done
+		
+		let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。
+		while循环可用于读取键盘信息，an<Ctrl+D>结束循环.
+	03）无限循环
+		while :
+		do
+			command
+		done
+		
+		while true
+		do
+			command
+		done
+		
+		for (( ; ; ))
+	04）until循环
+		until循环执行一系列命令直至条件为true时停止。
+		until循环与while循环在处理方式上刚好相反。
+		一般while循环优于until循环，但在某些时候也只是极少数情况下，until循环更加有用。
+		until语法格式：
+		until condition
+		do
+			command
+		done
+	05）case语句
+		多选择语句，可以用case语句匹配一个值与一个模式，如果匹配成功，执行相匹配的命令，格式如下：
+		case 值 in
+		模式1）
+			command1
+			……
+			;;
+		模式2）
+			command2
+			……
+			;;
+		esac
+	06）跳出循环
+		1、break命令允许跳出所有循环(终止执行后面的所有循环)
+		2、continue跳出当前循环(不是跳出所有循环，后面的还要执行)
+	07）esac
+		case的结束标记，每个case分支用右圆括号，用两个分号表示break。
+12. Shell函数
+	linux shell用户可以定义函数，然后在shell脚本中可以随便调用。格式如下：
+	[ function ] funcname [()]
 	
+	{
+		action;
+		[return int;]
+	}
+	
+	说明：
+	· 1、可以带function fun()定义，也可以直接fun()定义，不带任何参数。
+	· 2、参数返回，可以显示加return返回，如果不加，将以最后一条命令运行结果作为返回值。return后跟数值n(0-255)
+	· 3、函数返回值在调用该函数后通过$?来获得。
+	注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至Shell解释器首次发现它时，才可以使用。调用函数仅使用函数名即可。
+	01）函数参数
+		在Shell中，调用函数是可以向其传递参数。在函数体内部，通过$n的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数。
+		注意：$10不能获取 第10个参数，获取第10个参数要${10}。当n>=10时，需要用${n}来获取参数。
+		另外，还有几个特殊字符用来处理参数：
+		参数	说明
+		$#	传递到脚本的参数个数
+		$*	以一个单字符显示所有向脚本传递的参数
+		$$	脚本运行的当前进程ID号
+		$!	后台运行的最后一个进程的ID号
+		$@	与$*相同，但是使用时加引号，并在引号中返回每个参数
+		$-	显示Shell使用的当前选项，与set命令功能相同
+		$?	显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。
+13. Shell输入输出重定向
+	大多数UNIX系统命令从你的终端接受输入并将所产生的输出发送回到你的终端。一个命令通常从一个叫标准输入的地方读取输入，默认情况下，这恰好是你的终端。同样，一个命令通常将其输出写入到标准输出，默认情况下，这也是你的终端。
+	01）重定向命令列表如下：
+		命令				说明
+		command > file	将输出重定向到file
+		command < file	将输入重定向到file
+		command >> file	将输出以追加方式重定向到file
+		n > file		将文件描述符为n的文件重定向到file
+		n >> file		将文件描述符为n的文件以追加的方式重定向到file
+		n >& m			将输出文件m和n合并。
+		n <& m			将输入文件m和n合并
+		<< tag			将开始标记tag和结束标记tag之间的内容作为输入
+		需要注意：文件描述符0通常是标准输入(STDIN),1是标准输出(STDOUT)，2是标准错误输出(STDERR)。
+		重定向深入讲解：
+		一般情况下，每个Unix/Linux命令运行时会打开三个文件：
+		· 标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据
+		· 标准输出文件(stdout)：stdout的文件描述符为1，Unix程序默认向stdout输出数据。
+		· 标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。
+	02）默认情况下，command > file 将stdout重定向到file，command < file 将stdin重定向到file。
+	03）Here Document
+		Here Document是Shell中的一种特殊的重定向方式，用来将输入重定向到一个交互式Shell脚本程序。
+	04）/dev/null文件
+		如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到/dev/null
+		/dev/null是一个特殊文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是/dev/null文件非常有用，将命令的输出重定向到它，会起到禁止输出的效果。
+		如果希望屏蔽stdout和stderr，可以这样写：
+		$ command > /dev/null 2>&1
+14. Shell 文件包含
+	Shell也可以包含外部脚本。这样可以很方便的封装一些共用的代码作为一个独立的文件。语法格式如下：
+	【. filename】或【source filename】
+
+#########################################
+## 标题：pandas教程                     #
+## 时间：2019/10/21 9:50                #
+#########################################
+00. pandas处理Excel数据的应用
+	01）安装环境
+		1、pip install xlrd
+		2、pip install pandas
+		3、安装pandas模块还要有编码环境，确保电脑上有Net.4、VC-Compliler以及winsdk_web。
+		   实际安装时并未特意安装这三个模块，可能系统上已经存在了。
+	02）pandas操作Excel表单
+		1、读取工作表
+		   df=pd.read_excel(bookname,sheet_name='sheetname')
+		   data=df.head([rownum]) #默认读取前5行的数据
+		   data=df.values #读取所有数据，是一个列表data[0]表示第一行数据。
+	03）pandas操作Excel的行列
+		1、读取指定的单行，数据保存在列表里面
+		   df=pd.read_excel('lemon.xlsx') #默认读取工作薄的第一个工作表
+		   data=df.ix[0].values #0表示第一行，values读取数据不包含表头
+		   print("读取指定行的数据：\n{0}".format(data))
+		   
